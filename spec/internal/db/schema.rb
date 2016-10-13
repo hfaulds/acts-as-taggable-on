@@ -60,6 +60,11 @@ ActiveRecord::Schema.define version: 0 do
     t.column :cached_glass_list, :string
   end
 
+  create_table :taggable_through_models, force: true do |t|
+    t.column :name, :string
+    t.column :foreign_id, :integer
+  end
+
   create_table :companies, force: true do |t|
     t.column :name, :string
   end

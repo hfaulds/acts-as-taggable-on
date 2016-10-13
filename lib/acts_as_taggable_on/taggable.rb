@@ -69,7 +69,10 @@ module ActsAsTaggableOn
     #     acts_as_taggable_on :languages, :skills
     #   end
     def acts_as_taggable_through(taggable_class, taggable_key)
-      taggable_on(true, taggable_class, taggable_key, taggable_class.tag_types)
+      taggable_on(taggable_class.preserve_tag_order,
+                  taggable_class,
+                  taggable_key,
+                  taggable_class.tag_types)
     end
 
     private

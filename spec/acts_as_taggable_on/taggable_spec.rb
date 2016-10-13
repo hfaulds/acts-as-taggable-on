@@ -1,6 +1,22 @@
 # encoding: utf-8
 require 'spec_helper'
 
+describe 'Taggable Through Another Model' do
+  it 'should have tagged_with' do
+    taggable = TaggableModel.create!(name: 'Bob Jones')
+    taggable_through = TaggableThroughModel.create!(name: 'Brad Jones', foreign_id: taggable.id)
+
+    expect(TaggableModel.tagged_with([:awesome]).to_a).to eq([])
+    expect(TaggableThroughModel.tagged_with([:awesome]).to_a).to eq([])
+
+    taggable.tag_list = %w(awesome epic)
+    taggable.save
+
+    expect(TaggableModel.tagged_with([:awesome]).to_a).to eq([taggable])
+    expect(TaggableThroughModel.tagged_with([:awesome]).to_a).to eq([taggable_through])
+  end
+end
+
 describe 'Taggable To Preserve Order' do
   before(:each) do
     @taggable = OrderedTaggableModel.new(name: 'Bob Jones')

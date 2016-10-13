@@ -33,6 +33,10 @@ class AlteredInheritingTaggableModel < TaggableModel
   acts_as_taggable_on :parts
 end
 
+class TaggableThroughModel < ActiveRecord::Base
+  acts_as_taggable_through TaggableModel, :foreign_id
+end
+
 class Market < ActsAsTaggableOn::Tag
 end
 
